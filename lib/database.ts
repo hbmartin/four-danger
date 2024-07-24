@@ -1,32 +1,80 @@
-import setupIndexedDB, { useIndexedDBStore } from "use-indexeddb";
+import { GameState } from "./models";
 
-// Database Configuration
-const idbConfig = {
-  databaseName: "games-db",
-  version: 1,
-  stores: [
-    {
-      name: "games",
-      id: { keyPath: "id", autoIncrement: false },
-      indices: [
-        { name: "board", keyPath: "board", options: { unique: false } },
-        { name: "currentMove", keyPath: "currentMove", options: { unique: false } },
-        { name: "oppName", keyPath: "oppName", options: { unique: false } },
-        { name: "winner", keyPath: "winner", options: { unique: false } },
-        { name: "clock", keyPath: "clock", options: { unique: false } },
-      ],
-    },
-  ],
-};
+// Open or create the IndexedDB
+function openDatabase() {
+  return new Promise<IDBDatabase>((resolve, reject) => {
+    const request = indexedDB.open('GameDatabase', 1);
 
-export const setupDB = () => {
-  setupIndexedDB(idbConfig)
-    .then(() => console.log("success"))
-    .catch(e => console.error("error / unsupported", e));
-};
+    request.onupgradeneeded = function (event) {
+      const db = request.result;
+      if (!db.objectStoreNames.contains('games')) {
+        db.createObjectStore('games', { keyPath: 'id' });
+      }
+    };
 
-export const { add } = useIndexedDBStore("games");
+    request.onsuccess = function () {
+      resolve(request.result);
+    };
 
-export  const insertFruit = () => {
-  add({ name: "Mango 🥭", quantity: 2 }).then(console.log);
-};
+    request.onerror = function () {
+      reject(request.error);
+    };
+  });
+}
+
+function addGame(gameState: GameState): Promise<void> {
+  return new Promise<void>((resolve, reject) => {
+    openDatabase().then(db => {
+      const transaction = db.transaction('games', 'readwrite');
+      const store = transaction.objectStore('games');
+      const request = store.add(gameState);
+
+      request.onsuccess = function () {
+        resolve();
+      };
+
+      request.onerror = function () {
+        reject(request.error);
+      };
+    }).catch(error => reject(error));
+  });
+}
+// List all game states from the IndexedDB store
+function listAllGames(): Promise<GameState[]> {
+  return new Promise<GameState[]>((resolve, reject) => {
+    openDatabase().then(db => {
+      const transaction = db.transaction('games', 'readonly');
+      const store = transaction.objectStore('games');
+      const request = store.getAll();
+
+      request.onsuccess = function () {
+        resolve(request.result as GameState[]);
+      };
+
+      request.onerror = function () {
+        reject(request.error);
+      };
+    }).catch(error => reject(error));
+  });
+}
+
+// Update an existing game state in the IndexedDB store
+function updateGame(gameState: GameState): Promise<void> {
+  return new Promise<void>((resolve, reject) => {
+    openDatabase().then(db => {
+      const transaction = db.transaction('games', 'readwrite');
+      const store = transaction.objectStore('games');
+      const request = store.put(gameState);
+
+      request.onsuccess = function () {
+        resolve();
+      };
+
+      request.onerror = function () {
+        reject(request.error);
+      };
+    }).catch(error => reject(error));
+  });
+}
+
+export { addGame, updateGame, listAllGames };

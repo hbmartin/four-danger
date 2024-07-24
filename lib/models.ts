@@ -5,7 +5,7 @@ interface Move {
     piece: number | null;
 }
 
-interface GameState {
+export interface GameState {
     id: string;
     board: number[];
     currentMove: Move;
@@ -16,11 +16,11 @@ interface GameState {
     placePiece: (index: number, piece: number) => void;
 }
 
-export const newGame = (my_name: string): GameState => ({
+export const newGame = (myName: string): GameState => ({
     id: generateRandomString(),
     board: Array(16).fill(0),
     currentMove: {
-        user: my_name,
+        user: myName,
         piece: null,
     },
     winner: null,
