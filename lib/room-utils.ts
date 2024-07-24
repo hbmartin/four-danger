@@ -1,5 +1,5 @@
-export function generateString(length: number = 5) {
-    const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789';
+export function generateRandomString(length: number = 6) {
+    const characters ='ABCDEFGHIJKLMNPQRSTUVWXYZ123456789';
 
     let result = '';
     const charactersLength = characters.length;
