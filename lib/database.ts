@@ -22,7 +22,7 @@ function openDatabase() {
   });
 }
 
-function addGame(gameState: GameState): Promise<void> {
+function addGameToDB(gameState: GameState): Promise<void> {
   return new Promise<void>((resolve, reject) => {
     openDatabase().then(db => {
       const transaction = db.transaction('games', 'readwrite');
@@ -40,7 +40,7 @@ function addGame(gameState: GameState): Promise<void> {
   });
 }
 // List all game states from the IndexedDB store
-function listAllGames(): Promise<GameState[]> {
+function fetchGamesFromDB(): Promise<GameState[]> {
   return new Promise<GameState[]>((resolve, reject) => {
     openDatabase().then(db => {
       const transaction = db.transaction('games', 'readonly');
@@ -59,7 +59,7 @@ function listAllGames(): Promise<GameState[]> {
 }
 
 // Update an existing game state in the IndexedDB store
-function updateGame(gameState: GameState): Promise<void> {
+function updateGameInDB(gameState: GameState): Promise<void> {
   return new Promise<void>((resolve, reject) => {
     openDatabase().then(db => {
       const transaction = db.transaction('games', 'readwrite');
@@ -77,4 +77,4 @@ function updateGame(gameState: GameState): Promise<void> {
   });
 }
 
-export { addGame, updateGame, listAllGames };
+export { addGameToDB, updateGameInDB, fetchGamesFromDB };
