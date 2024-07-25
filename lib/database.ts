@@ -77,4 +77,13 @@ function updateGameInDB(gameState: GameState): Promise<void> {
   });
 }
 
-export { addGameToDB, updateGameInDB, fetchGamesFromDB };
+function saveNameLS(name: string) {
+  localStorage.setItem('name', name);
+}
+
+function getNameLS(): string | null {
+  return localStorage.getItem('name');
+}
+
+
+export { addGameToDB, updateGameInDB, fetchGamesFromDB, saveNameLS, getNameLS };

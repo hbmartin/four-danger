@@ -1,16 +1,38 @@
 // For each game, we need to keep track of the state of the game, the moves that have been made, and the players that are in the game.
-// We need to update the database and the game state, keeping track of the previous currentMove so they can be rolled back in case of failed moves.
-// We need to be able to list all the games, and to be able to join a game.
-// We need to be able to make a move, and to be able to undo a move.
-// We need to be able to declare a winner, and to be able to list all the games that have been won.
+
 import { GameState, newGame } from "@/lib/models";
 import { addGameToDB, fetchGamesFromDB, updateGameInDB } from "./database";
+import { createClient } from "@supabase/supabase-js";
+
+const SUPABASE_URL = 'https://kdmheuzdtaqxkoczxocf.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtkbWhldXpkdGFxeGtvY3p4b2NmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjEzNDc5OTEsImV4cCI6MjAzNjkyMzk5MX0.0L0eEUF6PUSE1Pj6nhGQ1EP2kUXY2Q1-5jLkGlFIT5M';
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
 
 class GameController {
-    private games: Map<string, GameState>;
+    private games: Map<string, GameState> = new Map();
+    private currentGame: GameState | null = null;
+
+    private channel = supabase.channel('room_01')
+        .on(
+            'broadcast',
+            { event: 'test' },
+            (payload) => console.log('payload', payload)
+        )
+        .subscribe(async (status) => {
+            console.log('status', status);
+            if (status !== "SUBSCRIBED") return;
+        });
+
+    private brodcast = () => {
+        const result = this.channel.send({
+            type: 'broadcast',
+            event: 'test',
+            payload: { message: 'hello, world' },
+        })
+    };
 
     constructor() {
-        this.games = new Map();
         this.loadGamesFromDatabase();
     }
 
