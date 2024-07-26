@@ -1,9 +1,11 @@
+"use client";
+
 import { GameState } from "./models";
 
 // Open or create the IndexedDB
 function openDatabase() {
   return new Promise<IDBDatabase>((resolve, reject) => {
-    const request = indexedDB.open('GameDatabase', 1);
+    const request = window.indexedDB.open('GameDatabase', 1);
 
     request.onupgradeneeded = function (event) {
       const db = request.result;
@@ -58,8 +60,29 @@ function fetchGamesFromDB(): Promise<GameState[]> {
   });
 }
 
+// Fetch a single game state from the IndexedDB store by id
+function fetchGameFromDB(id: string): Promise<GameState | null> {
+  return new Promise<GameState | null>((resolve, reject) => {
+    openDatabase().then(db => {
+      const transaction = db.transaction('games', 'readonly');
+      const store = transaction.objectStore('games');
+      const request = store.get(id);
+
+      request.onsuccess = function () {
+        resolve(request.result as GameState | null);
+      };
+
+      request.onerror = function () {
+        reject(request.error);
+      };
+    }).catch(error => reject(error));
+  });
+}
+
+
 // Update an existing game state in the IndexedDB store
 function updateGameInDB(gameState: GameState): Promise<void> {
+  console.log('updateGameInDB', gameState)
   return new Promise<void>((resolve, reject) => {
     openDatabase().then(db => {
       const transaction = db.transaction('games', 'readwrite');
@@ -78,12 +101,12 @@ function updateGameInDB(gameState: GameState): Promise<void> {
 }
 
 function saveNameLS(name: string) {
-  localStorage.setItem('name', name);
+  window.localStorage.setItem('name', name);
 }
 
 function getNameLS(): string | null {
-  return localStorage.getItem('name');
+  return window.localStorage.getItem('name');
 }
 
 
-export { addGameToDB, updateGameInDB, fetchGamesFromDB, saveNameLS, getNameLS };
+export { addGameToDB, updateGameInDB,fetchGameFromDB, fetchGamesFromDB, saveNameLS, getNameLS };
