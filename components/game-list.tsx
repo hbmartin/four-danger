@@ -24,7 +24,13 @@ export const GameList: React.FC<GameListProps> = ({ name }) => {
                 <span className="flex-1 text-center">New Game</span>
             </Button>
             {games.map((game, index) => (
-                <Button key={index} className="w-full" variant="outline" onClick={() => router.push(`/${game.id}`, { shallow: true })}>
+                <Button
+                    key={index}
+                    className="w-full"
+                    variant="outline"
+                    onClick={() => router.push(`/${game.id}`, { shallow: true })}
+                    aria-label={`Join game against ${game.oppName || 'opponent'}, ${game.clock} turns played`}
+                >
                     <span className="flex-1 text-center">{game.oppName || game.id} ({game.clock} turns)</span>
                 </Button>
             ))}
