@@ -1,6 +1,6 @@
 "use client";
 
-import { Board } from "@/components/board";
+import { BoardAndPieces } from "@/components/board";
 import { LoginForm } from "@/components/login-form";
 import { getNameLS, saveNameLS } from "@/lib/database";
 import { useEffect, useState } from "react";
@@ -28,7 +28,7 @@ export default function GamePage({ params }: { params: { slug: string } }) {
         {name == null ? (
           <LoginForm loginClick={handleLogin} />
         ) : (
-          <Board id={params.slug} />
+          <BoardAndPieces id={params.slug} />
         )}
       </main>
     );
