@@ -5,13 +5,13 @@ import { GameState } from './models'
 const version = 0
 
 export const gameStorage: PersistStorage<GameState | null> = {
-    getItem: async (name: string): Promise<StorageValue<GameState> | null> => {
+    getItem: (name: string): Promise<StorageValue<GameState> | null> => {
         console.log(name, 'is being retrieved')
         return fetchGameFromDB(name)
             .then(game => {
                 if (game) {
                     return {
-                        state: game,
+                        state: { game },
                         version: version
                     }
                 }
@@ -19,7 +19,7 @@ export const gameStorage: PersistStorage<GameState | null> = {
             })
     },
     setItem: async (name: string, value: StorageValue<GameState | null>): Promise<void> => {
-        console.log(name, 'with value', value, 'is being saved')
+        console.log(name, 'is being saved', value)
         if (value.state) {
             return updateGameInDB(value.state)
         }

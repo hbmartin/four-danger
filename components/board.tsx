@@ -1,19 +1,18 @@
 "use client";
 
-import { useCurrentGameStore } from "@/lib/game-store";
 import { useRef, useState } from "react"
 import { GameGrid } from "./game-grid";
+import useSync from "@/lib/sync-hook";
 
 const me = "HM";
 const you = "GB";
 
-interface LoginFormProps {
+interface BoardAndPiecesProps {
   id: string;
 }
 
-export const Board: React.FC<LoginFormProps> = ({ id }) => {
-  const store = useRef(useCurrentGameStore(id))
-  const { game, placePiece, handPiece } = store.current()
+export const BoardAndPieces: React.FC<BoardAndPiecesProps> = ({ id }) => {
+  const { game, connected, placePiece, handPiece } = useSync(id)
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null)
   const [move, setMove] = useState({user: "HM", piece: null})
   const handleIconClick = (icon: string) => {
@@ -53,6 +52,9 @@ export const Board: React.FC<LoginFormProps> = ({ id }) => {
     <div className="flex flex-col items-center w-full max-w-md mx-auto gap-6 p-4 md:p-6">
       <div className="flex flex-wrap gap-2 justify-center">
         {message()}
+      </div>
+      <div className="flex flex-wrap gap-2 justify-center">
+        {connected}
       </div>
       {game?.board &&
       <GameGrid grid={game?.board} onGridClick={handleGridClick} /> ||
