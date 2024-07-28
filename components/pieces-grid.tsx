@@ -13,7 +13,7 @@ export const PiecesGrid: React.FC<PiecesGridProps> = ({ visible, handlePieceClic
                 className={`bg-muted rounded-full w-24 h-24 flex items-center justify-center cursor-pointer`}
                 onClick={() => handlePieceClick(1)}
             >
-                <Pieces.StripedGreenCircleHole className="w-24 h-24 text-muted-foreground" />
+                <Pieces.GreenCircleDashedHole className="w-24 h-24 text-muted-foreground" />
             </div>
             <div
                 className={`bg-muted rounded-full w-8 h-8 flex items-center justify-center cursor-pointer`}

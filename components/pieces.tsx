@@ -1,5 +1,5 @@
 
-function StripedGreenCircleHole(props: any) {
+function GreenCircleDashedHole(props: any) {
     return (
         <svg
             {...props}
@@ -12,17 +12,14 @@ function StripedGreenCircleHole(props: any) {
             strokeLinecap="round"
             strokeLinejoin="round"
         >
-            <pattern id="stripes" patternUnits="userSpaceOnUse" width="10" height="10">
-                <circle cx="5" cy="5" r="4" fill="#6BC78A" stroke="none" />
-            </pattern>
-            <circle cx="50" cy="50" r="30" fill="none" stroke="url(#stripes)" strokeWidth="20" />
-
+            <circle cx="50" cy="50" r="40" stroke="#6BC78A" stroke-width="2" fill="none" stroke-dasharray="5,5" />
+            <circle cx="50" cy="50" r="20" fill="none" stroke="#6BC78A" stroke-width="2" />
         </svg>
     )
 }
 
 
-function ComponentIcon(props: any) {
+function GreenCircleDashedSolid(props: any) {
     return (
         <svg
             {...props}
@@ -36,10 +33,7 @@ function ComponentIcon(props: any) {
             strokeLinecap="round"
             strokeLinejoin="round"
         >
-            <path d="M5.5 8.5 9 12l-3.5 3.5L2 12l3.5-3.5Z" />
-            <path d="m12 2 3.5 3.5L12 9 8.5 5.5 12 2Z" />
-            <path d="M18.5 8.5 22 12l-3.5 3.5L15 12l3.5-3.5Z" />
-            <path d="m12 15 3.5 3.5L12 22l-3.5-3.5L12 15Z" />
+            <circle cx="50" cy="50" r="40" stroke="#6BC78A" stroke-width="2" fill="none" stroke-dasharray="5,5" />
         </svg>
     )
 }
@@ -212,4 +206,4 @@ function XIcon(props: any) {
     )
 }
 
-export { StripedGreenCircleHole, ComponentIcon, StripedGreenCircleSolid, StripedGreenSquareHole, HexagonIcon, OctagonIcon, SquareIcon, StarIcon, TriangleIcon, XIcon }
+export { GreenCircleDashedHole, GreenCircleDashedSolid, StripedGreenCircleSolid, StripedGreenSquareHole, HexagonIcon, OctagonIcon, SquareIcon, StarIcon, TriangleIcon, XIcon }GreenCircleDashedSolid
