@@ -27,7 +27,7 @@ export const useGamesStore = create<GamesState>()((set) => ({
 interface CurrentGame {
     game: GameState | null;
     setGame: (game: GameState) => void;
-    placePiece: null | ((index: number, piece: number) => void);
+    placePiece: null | ((index: number) => void);
     handPiece: null | ((piece: number) => void);
 }
 
@@ -38,10 +38,10 @@ const _useCurrentGameStore = (id: string) => create<CurrentGame>()(
             setGame: (game: GameState) => {
                 set({ game });
             },
-            placePiece: function (index: number, piece: number) {
+            placePiece: function (index: number) {
                 const { game } = get();
                 if (game != null) {
-                    set({ game: placePiece(game, index, piece) });
+                    set({ game: placePiece(game, index) });
                 }
             },
             handPiece: function (piece: number,) {

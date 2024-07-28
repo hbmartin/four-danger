@@ -19,7 +19,7 @@ export interface GameState {
     id: string;
     board: number[];
     currentMove: Move;
-    oppName: string | null;
+    players: [string, string | null];
     winner: string | null;
     clock: number;
 }
@@ -31,7 +31,7 @@ export const newGame = (myName: string): GameState => ({
         user: myName,
         piece: null,
     },
+    players: [myName, null],
     winner: null,
     clock: 0,
-    oppName: null,
 });

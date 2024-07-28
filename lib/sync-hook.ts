@@ -12,8 +12,8 @@ const useSync = (id: string) => {
     const _local = useCurrentGameStore(id)
     const local = _local();
 
-    const placePiece = (index: number, piece: number) => {
-        local?.placePiece?.(index, piece)
+    const placePiece = (index: number) => {
+        local?.placePiece?.(index)
     }
     const handPiece = (piece: number) => {
         local?.handPiece?.(piece);

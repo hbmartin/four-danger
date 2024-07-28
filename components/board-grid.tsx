@@ -1,6 +1,6 @@
 import { ComponentIcon } from "lucide-react"
 
-export const GameGrid = ({ grid, onGridClick }: { grid: number[], onGridClick: (index: number) => void }) => {
+export const BoardGrid = ({ grid, onGridClick }: { grid: number[], onGridClick: (index: number) => void }) => {
     return (
         <div className="grid grid-cols-4 gap-2 w-full border rounded-md p-2">
             {grid.map((icon, index) => (
