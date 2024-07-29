@@ -1,4 +1,5 @@
 import { ComponentIcon } from "lucide-react"
+import { Piece } from "./pieces"
 
 export const BoardGrid = ({ grid, onGridClick }: { grid: (number | null)[], onGridClick: (index: number) => void }) => {
     return (
@@ -9,7 +10,7 @@ export const BoardGrid = ({ grid, onGridClick }: { grid: (number | null)[], onGr
                     className="bg-background border rounded-md aspect-square flex items-center justify-center cursor-pointer"
                     onClick={() => onGridClick(index)}
                 >
-                    {piece && <ComponentIcon className="w-5 h-5 text-muted-foreground" />}
+                    {(piece != null) && <Piece piece={piece} />}
                 </div>
             ))}
         </div>

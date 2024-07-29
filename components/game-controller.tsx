@@ -1,11 +1,11 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { BoardGrid } from "./board-grid";
 import useSync from "@/lib/sync-hook";
-import { HexagonIcon, OctagonIcon, SquareIcon, StarIcon, StripedGreenCircleHole, StripedGreenCircleSolid, StripedGreenSquareHole, TriangleIcon } from "./pieces";
 import { PiecesGrid } from "./pieces-grid";
 import { findOppName, getAvailablePieces } from "@/lib/game-logic";
+import { ChosenPiece } from "./chosen-piece";
 
 interface GameControllerProps {
   id: string;
@@ -13,9 +13,10 @@ interface GameControllerProps {
 }
 
 export const GameController: React.FC<GameControllerProps> = ({ id, name }) => {
-  const { game, connected, placePiece, handPiece } = useSync(id)
+  const { game, connected, placePiece, handPiece, joinGame } = useSync(id)
 
   const handlePieceClick = (piece: number) => {
+    console.log("handlePieceClick", piece)
     if (game && game.currentMove.user == name && game.currentMove.piece === null) {
       handPiece(piece)
     } else {
@@ -33,6 +34,12 @@ export const GameController: React.FC<GameControllerProps> = ({ id, name }) => {
     }
   }
 
+  useEffect(() => {
+    if (game && game.players[0] != name && game.players[1] == null) {
+      joinGame(name)
+    }
+  }, [game?.players[1]])
+
   const message: string = useMemo(() => {
     if (!game) {
       return "Loading..."
@@ -46,7 +53,7 @@ export const GameController: React.FC<GameControllerProps> = ({ id, name }) => {
         return `Tap the board to place your piece.`
       }
     } else {
-      const oppName = findOppName(game, name)
+      const oppName = game.currentMove.user
       if (game.currentMove.piece == null) {
         return `Waiting for ${oppName} to choose a piece.`
       } else {
@@ -64,8 +71,13 @@ export const GameController: React.FC<GameControllerProps> = ({ id, name }) => {
   }, [game?.board])
 
   const showPieces = useMemo(() => {
-    return game?.currentMove.user == name && game?.currentMove.piece == null;
-  }, [game?.currentMove, name])
+    return game?.currentMove.user == name && game?.currentMove.piece == null && game?.players[1] != null;
+  }, [game?.currentMove.user, game?.currentMove.piece, game?.players[1], name])
+
+
+  const showChosenPiece = useMemo(() => {
+    return game?.currentMove.user == name && game?.currentMove.piece != null && game?.players[1] != null;
+  }, [game?.currentMove.user, game?.currentMove.piece, game?.players[1], name])
 
   return (
     <div className="flex flex-col items-center w-full max-w-md mx-auto gap-6 p-4 md:p-6">
@@ -75,11 +87,12 @@ export const GameController: React.FC<GameControllerProps> = ({ id, name }) => {
       <div className="flex flex-wrap gap-2 justify-center">
         {message}
       </div>
-      {game?.board &&
+      {game?.players[1] &&
         <BoardGrid grid={game?.board} onGridClick={handleGridClick} /> ||
-        <div>Loading...</div>
+        <div>Waiting for new player to join... (TODO: share sheet)</div>
       }
+      <ChosenPiece piece={game?.currentMove.piece} visible={showChosenPiece} />
       <PiecesGrid availablePieces={availablePieces} handlePieceClick={handlePieceClick} visible={showPieces} />
-    </div>
+      </div>
   )
 }

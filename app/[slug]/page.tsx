@@ -16,8 +16,8 @@ export default function GamePage({ params }: { params: { slug: string } }) {
   
     const handleLogin = (name: string) => {
       if (name.trim().length > 1) {
-        setName(name);
         saveNameLS(name);
+        setName(name);
       }
     };
   
@@ -32,8 +32,4 @@ export default function GamePage({ params }: { params: { slug: string } }) {
         )}
       </main>
     );
-}
-
-function loadGameFromDB(slug: string) {
-    throw new Error("Function not implemented.");
 }
