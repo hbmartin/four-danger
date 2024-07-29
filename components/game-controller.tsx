@@ -69,6 +69,9 @@ export const GameController: React.FC<GameControllerProps> = ({ id, name }) => {
 
   return (
     <div className="flex flex-col items-center w-full max-w-md mx-auto gap-6 p-4 md:p-6">
+      <div className="fixed top-4 right-4 bg-muted rounded-full w-8 h-8 flex items-center justify-center z-10">
+        <span>{connected ? "🟢" : "🔴"}</span>
+      </div>
       <div className="flex flex-wrap gap-2 justify-center">
         {message}
       </div>
@@ -76,7 +79,7 @@ export const GameController: React.FC<GameControllerProps> = ({ id, name }) => {
         <BoardGrid grid={game?.board} onGridClick={handleGridClick} /> ||
         <div>Loading...</div>
       }
-        <PiecesGrid availablePieces={availablePieces} handlePieceClick={handlePieceClick} visible={showPieces} />
+      <PiecesGrid availablePieces={availablePieces} handlePieceClick={handlePieceClick} visible={showPieces} />
     </div>
   )
 }

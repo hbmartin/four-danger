@@ -1,6 +1,6 @@
 "use client";
 
-import { GameController } from "@/components/board";
+import { GameController } from "@/components/game-controller";
 import { LoginForm } from "@/components/login-form";
 import { getNameLS, saveNameLS } from "@/lib/database";
 import { useEffect, useState } from "react";

@@ -17,7 +17,7 @@ interface Move {
 
 export interface GameState {
     id: string;
-    board: number[];
+    board: (number | null)[];
     currentMove: Move;
     players: [string, string | null];
     winner: string | null;
@@ -26,7 +26,7 @@ export interface GameState {
 
 export const newGame = (myName: string): GameState => ({
     id: generateRandomString(),
-    board: Array(16).fill(0),
+    board: Array(16).fill(null),
     currentMove: {
         user: myName,
         piece: null,

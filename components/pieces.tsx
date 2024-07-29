@@ -1,215 +1,145 @@
-
-function StripedGreenCircleHole(props: any) {
+function CircleHoleDashedPurple(props: any) {
     return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="100"
-            height="100"
-            viewBox="0 0 100 100"
-            fill="none"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <pattern id="stripes" patternUnits="userSpaceOnUse" width="10" height="10">
-                <circle cx="5" cy="5" r="4" fill="#6BC78A" stroke="none" />
-            </pattern>
-            <circle cx="50" cy="50" r="30" fill="none" stroke="url(#stripes)" strokeWidth="20" />
-
+        <svg {...props} width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="40" stroke="#6B9CC7" stroke-width="6" fill="#C76BB8" strokeDasharray="5,5" />
+            <circle cx="50" cy="50" r="20" fill="#ece3d4" stroke="#C76BB8" stroke-width="6" />
         </svg>
     )
 }
 
-
-function ComponentIcon(props: any) {
+function CircleHoleDashedGreen(props: any) {
     return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="blue"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <path d="M5.5 8.5 9 12l-3.5 3.5L2 12l3.5-3.5Z" />
-            <path d="m12 2 3.5 3.5L12 9 8.5 5.5 12 2Z" />
-            <path d="M18.5 8.5 22 12l-3.5 3.5L15 12l3.5-3.5Z" />
-            <path d="m12 15 3.5 3.5L12 22l-3.5-3.5L12 15Z" />
+        <svg {...props} width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="40" stroke="#6B9CC7" stroke-width="6" fill="#81C76B" strokeDasharray="5,5" />
+            <circle cx="50" cy="50" r="20" fill="#ece3d4" stroke="#81C76B" stroke-width="6" />
         </svg>
     )
 }
 
-
-function StripedGreenCircleSolid(props: any) {
+function CircleHoleNooutPurple(props: any) {
     return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="100"
-            height="100"
-            viewBox="0 0 100 100"
-            fill="none"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <pattern id="stripes" patternUnits="userSpaceOnUse" width="10" height="10">
-                <polygon points="0,0 2,5 0,10 5,8 10,10 8,5 10,0 5,2" fill="#6BC78A" stroke="none" />
-            </pattern>
-            <circle cx="50" cy="50" r="10" fill="none" stroke="url(#stripes)" strokeWidth="50" />
-
+        <svg {...props} width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="40" stroke="#C76BB8" stroke-width="6" fill="#C76BB8" />
+            <circle cx="50" cy="50" r="20" fill="#ece3d4" stroke="#C76BB8" stroke-width="6" />
         </svg>
     )
 }
 
-
-function StripedGreenSquareHole(props: any) {
+function CircleHoleNooutGreen(props: any) {
     return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="100"
-            height="100"
-            viewBox="0 0 100 100"
-            fill="none"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <rect x="10" y="10" width="80" height="80" fill="#996BC7" />
-            <circle cx="50" cy="50" r="20" fill="white" />
-            <pattern id="stripes" patternUnits="userSpaceOnUse" width="10" height="10">
-                <circle cx="5" cy="5" r="4" fill="#6BC78A" stroke="none" />
-            </pattern>
-            <rect x="10" y="10" width="80" height="80" fill="url(#stripes)" />
+        <svg {...props} width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="40" stroke="#81C76B" stroke-width="6" fill="#81C76B" />
+            <circle cx="50" cy="50" r="20" fill="#ece3d4" stroke="#81C76B" stroke-width="6" />
         </svg>
     )
 }
 
-
-function HexagonIcon(props: any) {
+function CircleSolidDashedPurple(props: any) {
     return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+        <svg {...props} width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="40" stroke="#6B9CC7" stroke-width="6" fill="#C76BB8" strokeDasharray="5,5" />
         </svg>
     )
 }
 
-
-function OctagonIcon(props: any) {
+function CircleSolidDashedGreen(props: any) {
     return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2" />
+        <svg {...props} width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="40" stroke="#6B9CC7" stroke-width="6" fill="#81C76B" strokeDasharray="5,5" />
         </svg>
     )
 }
 
-
-function SquareIcon(props: any) {
+function CircleSolidNooutPurple(props: any) {
     return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <rect width="18" height="18" x="3" y="3" rx="2" />
+        <svg {...props} width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="40" stroke="#C76BB8" stroke-width="6" fill="#C76BB8" />
         </svg>
     )
 }
 
-
-function StarIcon(props: any) {
+function CircleSolidNooutGreen(props: any) {
     return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+        <svg {...props} width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="40" stroke="#81C76B" stroke-width="6" fill="#81C76B" />
         </svg>
     )
 }
 
-
-function TriangleIcon(props: any) {
+function SquareHoleDashedPurple(props: any) {
     return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <path d="M13.73 4a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
+        <svg {...props} width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="80" height="80" stroke="#6B9CC7" stroke-width="6" fill="#C76BB8" strokeDasharray="5,5" />
+            <rect x="30" y="30" width="40" height="40" fill="#ece3d4" stroke="#C76BB8" stroke-width="6" />
         </svg>
     )
 }
 
-
-function XIcon(props: any) {
+function SquareHoleDashedGreen(props: any) {
     return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <path d="M18 6 6 18" />
-            <path d="m6 6 12 12" />
+        <svg {...props} width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="80" height="80" stroke="#6B9CC7" stroke-width="6" fill="#81C76B" strokeDasharray="5,5" />
+            <rect x="30" y="30" width="40" height="40" fill="#ece3d4" stroke="#81C76B" stroke-width="6" />
         </svg>
     )
 }
 
-export { StripedGreenCircleHole, ComponentIcon, StripedGreenCircleSolid, StripedGreenSquareHole, HexagonIcon, OctagonIcon, SquareIcon, StarIcon, TriangleIcon, XIcon }
+function SquareHoleNooutPurple(props: any) {
+    return (
+        <svg {...props} width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="80" height="80" stroke="#C76BB8" stroke-width="6" fill="#C76BB8" />
+            <rect x="30" y="30" width="40" height="40" fill="#ece3d4" stroke="#C76BB8" stroke-width="6" />
+        </svg>
+    )
+}
+
+function SquareHoleNooutGreen(props: any) {
+    return (
+        <svg {...props} width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="80" height="80" stroke="#81C76B" stroke-width="6" fill="#81C76B" />
+            <rect x="30" y="30" width="40" height="40" fill="#ece3d4" stroke="#81C76B" stroke-width="6" />
+        </svg>
+    )
+}
+
+function SquareSolidDashedPurple(props: any) {
+    return (
+        <svg {...props} width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="80" height="80" stroke="#6B9CC7" stroke-width="6" fill="#C76BB8" strokeDasharray="5,5" />
+        </svg>
+    )
+}
+
+function SquareSolidDashedGreen(props: any) {
+    return (
+        <svg {...props} width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="80" height="80" stroke="#6B9CC7" stroke-width="6" fill="#81C76B" strokeDasharray="5,5" />
+        </svg>
+    )
+}
+
+function SquareSolidNooutPurple(props: any) {
+    return (
+        <svg {...props} width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="80" height="80" stroke="#C76BB8" stroke-width="6" fill="#C76BB8" />
+        </svg>
+    )
+}
+
+function SquareSolidNooutGreen(props: any) {
+    return (
+        <svg {...props} width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="80" height="80" stroke="#81C76B" stroke-width="6" fill="#81C76B" />
+        </svg>
+    )
+}
+
+const pieces = [CircleHoleNooutGreen, SquareHoleNooutGreen, CircleSolidNooutGreen, SquareSolidNooutGreen, CircleHoleDashedGreen, SquareHoleDashedGreen, CircleSolidDashedGreen, SquareSolidDashedGreen, CircleHoleNooutPurple, SquareHoleNooutPurple, CircleSolidNooutPurple, SquareSolidNooutPurple, CircleHoleDashedPurple, SquareHoleDashedPurple, CircleSolidDashedPurple, SquareSolidDashedPurple]
+
+interface PieceProps {
+    piece: number;
+}
+
+export const Piece: React.FC<PieceProps> = ({ piece, ...props }) => (
+    pieces[piece](props)
+)
