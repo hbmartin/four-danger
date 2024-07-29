@@ -9,7 +9,7 @@ shapes = ["circle", "square"]
 holes = ["with_hole", "without_hole"]
 
 # Define the directory to save SVGs
-output_dir = "./"
+output_dir = "./components/"
 os.makedirs(output_dir, exist_ok=True)
 
 # Function to create SVG content
@@ -44,9 +44,9 @@ def create_svg(stroke, color, shape, hole):
         name += "Green"
     else:
         name += "Purple"
-    svg_content = f'<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">\n' \
+    svg_content = '<svg {...props} width="100" height="100" xmlns="http://www.w3.org/2000/svg">\n' \
                   f'  {shape_element}\n' \
-                  f'</svg>'
+                  '</svg>'
     return name, svg_content
 
 # Generate and save SVG files
@@ -57,11 +57,17 @@ for shape in shapes:
         for stroke in strokes:
             for color in colors:
                 filename = f"{shape}_{color.strip('#')}_{stroke}_{hole}.svg"
-                filepath = os.path.join(output_dir, filename)
                 name, svg_content = create_svg(stroke, color, shape, hole)
-                with open(filepath, "w") as file:
-                    file.write(svg_content)
-                svg_files.append(filepath)
+                names.append(name)
+                svg_components += f'function {name}(props: any)' + '{\n' \
+                '    return (\n' \
+                f'      {svg_content}' + '\n' \
+                '    )\n' \
+                '}\n\n'
 
-svg_files
+svg_components += 'export { ' + ','.join(names) + ' }'
 
+filepath = os.path.join(output_dir, "pieces.tsx")
+
+with open(filepath, "w") as file:
+    file.write(svg_components)
