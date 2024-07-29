@@ -34,7 +34,7 @@ const useSupabase = (id: string) => {
             setGame(updatedGame)
             if (firstAnswerReceived) {
                 console.log("broadcasting update")
-                broadcast(Events.PostState, game)
+                broadcast(Events.PostState, updatedGame)
             }
         }
     };

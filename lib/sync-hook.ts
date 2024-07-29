@@ -18,6 +18,9 @@ const useSync = (id: string) => {
     const handPiece = (piece: number) => {
         local?.handPiece?.(piece);
     }
+    const joinGame = (user: string) => {
+        local?.joinGame?.(user);
+    }
 
     _local.persist.onFinishHydration(() => {
         console.log('onFinishHydration')
@@ -58,7 +61,7 @@ const useSync = (id: string) => {
         setConnected(supabase.status === REALTIME_SUBSCRIBE_STATES.SUBSCRIBED);
     }, [supabase.status]);
 
-    return { game, connected, placePiece, handPiece };
+    return { game, connected, placePiece, handPiece, joinGame };
 }
 
 export default useSync;

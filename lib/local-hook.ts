@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { GameState, newGame } from './models'
 import { addGameToDB, fetchGamesFromDB } from './database'
-import { handPiece, placePiece } from './game-logic'
+import { handPiece, joinGame, placePiece } from './game-logic'
 import { persist } from 'zustand/middleware'
 import { gameStorage } from './local-persist'
 
@@ -29,6 +29,7 @@ interface CurrentGame {
     setGame: (game: GameState) => void;
     placePiece: null | ((index: number) => void);
     handPiece: null | ((piece: number) => void);
+    joinGame: null | ((user: string) => void);
 }
 
 const _useCurrentGameStore = (id: string) => create<CurrentGame>()(
@@ -48,6 +49,12 @@ const _useCurrentGameStore = (id: string) => create<CurrentGame>()(
                 const { game } = get();
                 if (game != null) {
                     set({ game: handPiece(game, piece) });
+                }
+            },
+            joinGame: function (user: string) {
+                const { game } = get();
+                if (game != null) {
+                    set({ game: joinGame(game, user) });
                 }
             }
         }),

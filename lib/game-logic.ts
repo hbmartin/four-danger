@@ -26,6 +26,17 @@ export const handPiece = produce(
     }
 )
 
+export const joinGame = produce(
+    (draft: GameState, user: string) => {
+        if (!draft.players[1]) {
+            draft.players[1] = user;
+            draft.clock++;
+        } else {
+            console.log("The game is already full.");
+        }
+    }
+)
+
 export const findOppName = (game: GameState, myName: string): string | null => {
     return game.players.filter(n => n !== myName)[0];
 }
@@ -33,7 +44,5 @@ export const findOppName = (game: GameState, myName: string): string | null => {
 const allPieces = Array.from({ length: 16 }, (_, i) => i);
 
 export const getAvailablePieces = (board: (number | null)[]) => {
-    console.log("allPieces", allPieces);
-    console.log("board", board);
     return allPieces.filter(piece => !board.includes(piece));
 }
