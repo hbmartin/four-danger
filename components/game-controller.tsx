@@ -47,9 +47,9 @@ export const GameController: React.FC<GameControllerProps> = ({ id, name }) => {
       return "Invite your opponent to join by sharing this link..."
     } else if (game.winner !== null) {
       if (game.winner == name) {
-        return "You won!!! 🎉"
+        return "🎉 You won! 🎉"
       } else {
-        return `${game.winner} won! 💀`
+        return `💀 ${game.winner} won! 💀`
       }
     } else if (game.currentMove.user == name) {
       if (game.currentMove.piece == null) {

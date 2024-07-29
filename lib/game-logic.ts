@@ -40,29 +40,39 @@ export const joinGame = produce(
 )
 
 const shareCharacteristic = (arr: (number | null)[]): boolean => {
-    if (!arr.every(num => num !== null)) return false;
+    if (!arr.every(num => num !== null)) { return false; }
     const sharedBits = arr.reduce((acc, num) => acc & num, 0xF);
-    if (sharedBits > 0) return true;
+    if (sharedBits > 0) { return true; }
     const sharedZeroBits = arr.reduce((acc, num) => acc & (~num & 0xF), 0xF);
     return sharedZeroBits > 0;
 }
 
+const GRID_SIZE = 4;
+
 const checkForWin = (grid: (number | null)[]): boolean => {
     // Check rows
-    for (let i = 0; i < 4; i++) {
-        if (shareCharacteristic(grid.slice(i * 4, (i + 1) * 4))) return true;
+    for (let i = 0; i < GRID_SIZE; i++) {
+        if (shareCharacteristic(grid.slice(i * GRID_SIZE, (i + 1) * GRID_SIZE))) {
+            return true;
+        }
     }
 
     // Check columns
     for (let i = 0; i < 4; i++) {
-        if (shareCharacteristic([grid[i], grid[i + 4], grid[i + 8], grid[i + 12]])) return true;
+        if (shareCharacteristic([grid[i], grid[i + 4], grid[i + 8], grid[i + 12]])) {
+            return true;
+        }
     }
 
     // Check main diagonal
-    if (shareCharacteristic([grid[0], grid[5], grid[10], grid[15]])) return true;
+    if (shareCharacteristic([grid[0], grid[5], grid[10], grid[15]])) {
+        return true;
+    }
 
     // Check anti-diagonal
-    if (shareCharacteristic([grid[3], grid[6], grid[9], grid[12]])) return true;
+    if (shareCharacteristic([grid[3], grid[6], grid[9], grid[12]])) {
+        return true;
+    }
 
     return false;
 }
