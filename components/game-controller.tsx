@@ -45,6 +45,12 @@ export const GameController: React.FC<GameControllerProps> = ({ id, name }) => {
       return "Loading..."
     } else if (game.players[1] == null) {
       return "Invite your opponent to join by sharing this link..."
+    } else if (game.winner !== null) {
+      if (game.winner == name) {
+        return "🎉 You won! 🎉"
+      } else {
+        return `💀 ${game.winner} won! 💀`
+      }
     } else if (game.currentMove.user == name) {
       if (game.currentMove.piece == null) {
         const oppName = findOppName(game, name)
@@ -71,13 +77,13 @@ export const GameController: React.FC<GameControllerProps> = ({ id, name }) => {
   }, [game?.board])
 
   const showPieces = useMemo(() => {
-    return game?.currentMove.user == name && game?.currentMove.piece == null && game?.players[1] != null;
-  }, [game?.currentMove.user, game?.currentMove.piece, game?.players[1], name])
+    return game?.currentMove.user == name && game?.currentMove.piece == null && game?.players[1] != null && game?.winner == null;
+  }, [game?.currentMove.user, game?.currentMove.piece, game?.players[1], name, game?.winner])
 
 
   const showChosenPiece = useMemo(() => {
-    return game?.currentMove.user == name && game?.currentMove.piece != null && game?.players[1] != null;
-  }, [game?.currentMove.user, game?.currentMove.piece, game?.players[1], name])
+    return game?.currentMove.user == name && game?.currentMove.piece != null && game?.players[1] != null && game?.winner == null;
+  }, [game?.currentMove.user, game?.currentMove.piece, game?.players[1], name, game?.winner])
 
   return (
     <div className="flex flex-col items-center w-full max-w-md mx-auto gap-6 p-4 md:p-6">
