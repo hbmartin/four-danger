@@ -12,6 +12,11 @@ enum Events {
     RequestState = 'request-state',
 }
 
+enum ConnectionStatus {
+    OFFLINE,
+    ONLINE,
+    OPP_PRESENT,
+}
 
 const useSupabase = (id: string) => {
     const [firstAnswerReceived, setFirstAnswerReceived] = useState(false);
@@ -39,7 +44,7 @@ const useSupabase = (id: string) => {
         }
     };
 
-    const receiveUpdatedStateThenUpdateOrBroadcast =  useCallback((payload: any) => {
+    const receiveUpdatedStateThenUpdateOrBroadcast = useCallback((payload: any) => {
         console.log('payload', payload)
         console.log('current game', game)
         if (payload.payload && typeof payload.payload.clock === 'number') {
