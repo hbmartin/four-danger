@@ -3,7 +3,7 @@ import { GameState } from "./models"
 
 export const placePiece = produce(
     (draft: GameState, index: number) => {
-        if (draft.board[index] === 0 && draft.currentMove.piece !== null) {
+        if (!draft.board[index] && draft.currentMove.piece !== null) {
             draft.board[index] = draft.currentMove.piece;
             draft.currentMove.piece = null;
             draft.clock++;
@@ -30,8 +30,10 @@ export const findOppName = (game: GameState, myName: string): string | null => {
     return game.players.filter(n => n !== myName)[0];
 }
 
-const allPieces = Array.from({ length: 16 }, (_, i) => i + 1);
+const allPieces = Array.from({ length: 16 }, (_, i) => i);
 
-export const getAvailablePieces = (board: number[]) => {
+export const getAvailablePieces = (board: (number | null)[]) => {
+    console.log("allPieces", allPieces);
+    console.log("board", board);
     return allPieces.filter(piece => !board.includes(piece));
 }
