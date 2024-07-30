@@ -41,7 +41,7 @@ export const GameList: React.FC<GameListProps> = ({ name }) => {
                     <span className="flex-1 text-center">{findOppName(game, name) ? findOppName(game, name) : "(New)"} ({game.clock} turns)</span>
                 </Button>
             ))}
-            {wonGames > 0 && <h3 className="text-xl text-center p-4">🥳 You've won {wonGames} game{wonGames > 1 ? "s" : ""} 🥳</h3>}
+            {wonGames > 0 && <h3 className="text-xl text-center p-4">🥳 You&rsquo;ve won {wonGames} game{wonGames > 1 ? "s" : ""} 🥳</h3>}
         </div>
     );
 
