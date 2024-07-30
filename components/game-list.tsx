@@ -1,9 +1,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useGamesStore } from "@/lib/local-hook";
 import { useRouter } from "next/navigation";
+import { findOppName } from "@/lib/game-logic";
 
 interface GameListProps {
     name: string
@@ -20,6 +21,8 @@ export const GameList: React.FC<GameListProps> = ({ name }) => {
     const createAndNavToGame = () => {
         createGame(name).then(gameId => router.push(`/${gameId}`));
     }
+    const currentGames = useMemo(() => games.filter(game => game.winner === null && game.players[1] !== null), [games]);
+    const wonGames = useMemo(() => games.filter(game => game.winner === name).length, [games]);
 
     return (
         <div className="w-full space-y-4 px-4 md:px-0 md:max-w-md">
@@ -27,7 +30,7 @@ export const GameList: React.FC<GameListProps> = ({ name }) => {
             <Button key={-1} className="w-full" onClick={createAndNavToGame}>
                 <span className="flex-1 text-center">New Game</span>
             </Button>
-            {games.map((game, index) => (
+            {currentGames.map((game, index) => (
                 <Button
                     key={index}
                     className="w-full"
@@ -35,9 +38,10 @@ export const GameList: React.FC<GameListProps> = ({ name }) => {
                     onClick={() => router.push(`/${game.id}`)}
                     aria-label={`Join game against opponent, ${game.clock} turns played`}
                 >
-                    <span className="flex-1 text-center">{game.id} ({game.clock} turns)</span>
+                    <span className="flex-1 text-center">{findOppName(game, name) ? findOppName(game, name) : "(New)"} ({game.clock} turns)</span>
                 </Button>
             ))}
+            {wonGames > 0 && <h3 className="text-xl text-center p-4">🥳 You&rsquo;ve won {wonGames} game{wonGames > 1 ? "s" : ""} 🥳</h3>}
         </div>
     );
 

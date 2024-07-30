@@ -79,6 +79,7 @@ const checkForWin = (grid: (number | null)[]): boolean => {
 
 
 export const findOppName = (game: GameState, myName: string): string | null => {
+    if (game.players[1] == null) { return null; }
     return game.players.filter(n => n !== myName)[0];
 }
 

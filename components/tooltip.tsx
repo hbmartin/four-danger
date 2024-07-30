@@ -1,6 +1,8 @@
-import { Button } from "@/components/ui/button"
+interface TooltipProps {
+  message: string;
+}
 
-export function AddToHomeTooltip() {
+export const Tooltip: React.FC<TooltipProps> = ({ message }) => {
   return (
     <div className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[90%] max-w-[400px] z-50 sm:hidden">
       <div className="bg-primary text-primary-foreground rounded-lg p-4 relative">
@@ -8,7 +10,7 @@ export function AddToHomeTooltip() {
           <div className="space-y-1">
             <h4 className="text-lg font-medium text-center">¡Importante!</h4>
             <p className="text-lg text-primary-foreground/80">
-              Tap the share button &rarr; scroll down to the 2nd section &rarr; tap &ldquo;Add to Home Screen&rdquo; [+].
+              {message}
             </p>
           </div>
         </div>
