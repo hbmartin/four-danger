@@ -1,0 +1,21 @@
+{
+    "name": "Four Danger",
+    "short_name": "Four Danger",
+    "description": "A challenging game with friends",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ece3d4",
+    "theme_color": "#ece3d4",
+    "icons": [
+      {
+        "src": "/apple-icon2.png",
+        "sizes": "180x180",
+        "type": "image/png"
+      },
+      {
+        "src": "/apple-icon1.png",
+        "sizes": "120x120",
+        "type": "image/png"
+      }
+    ]
+  }

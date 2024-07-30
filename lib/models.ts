@@ -24,6 +24,14 @@ export interface GameState {
     clock: number;
 }
 
+export interface CurrentGame {
+    game: GameState | null;
+    setGame: ((game: GameState) => void);
+    placePiece: ((index: number) => void);
+    handPiece: ((piece: number) => void);
+    joinGame: ((user: string) => void);
+}
+
 export const newGame = (myName: string): GameState => ({
     id: generateRandomString(),
     board: Array(16).fill(null),

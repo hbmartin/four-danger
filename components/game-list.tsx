@@ -17,10 +17,14 @@ export const GameList: React.FC<GameListProps> = ({ name }) => {
         loadGames();
     }, []);
 
+    const createAndNavToGame = () => {
+        createGame(name).then(gameId => router.push(`/${gameId}`));
+    }
+
     return (
         <div className="w-full space-y-4 px-4 md:px-0 md:max-w-md">
             <h2 className="text-2xl font-bold text-center p-4">Hello {name}</h2>
-            <Button key={-1} className="w-full" onClick={() => createGame(name)}>
+            <Button key={-1} className="w-full" onClick={createAndNavToGame}>
                 <span className="flex-1 text-center">New Game</span>
             </Button>
             {games.map((game, index) => (

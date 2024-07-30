@@ -1,9 +1,10 @@
 "use client";
 
+import { AddToHomeTooltip } from "@/components/add-to-home-tooltip";
 import { GameList } from "@/components/game-list";
 import { LoginForm } from "@/components/login-form";
 import { getNameLS, saveNameLS } from "@/lib/database";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 
 export default function Home() {
@@ -22,15 +23,22 @@ export default function Home() {
     }
   };
 
-  if (isLoading) { return <div></div>; }
+  const showInstallMessage = () => {
+    const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase())
+    const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator.standalone)
+    return isIos && !isInStandaloneMode
+  }
+
+  if (isLoading) { return <div />; }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between px-24">
+    <main className="flex min-h-full flex-col items-center justify-between md:px-24">
       {name == null ? (
         <LoginForm loginClick={handleLogin} />
       ) : (
         <GameList name={name!} />
       )}
+      {showInstallMessage() && <AddToHomeTooltip />}
     </main>
   );
 }
