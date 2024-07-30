@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { GameState, newGame } from './models'
+import { CurrentGame, GameState, newGame } from './models'
 import { addGameToDB, fetchGamesFromDB } from './database'
 import { handPiece, joinGame, placePiece } from './game-logic'
 import { persist } from 'zustand/middleware'
@@ -8,7 +8,7 @@ import { gameStorage } from './local-persist'
 interface GamesState {
     games: GameState[]
     loadGames: () => void
-    createGame: (myName: string) => void
+    createGame: (myName: string) => Promise<string>
 }
 
 export const useGamesStore = create<GamesState>()((set) => ({
@@ -17,20 +17,13 @@ export const useGamesStore = create<GamesState>()((set) => ({
         const gamesFromDB = await fetchGamesFromDB();
         set({ games: gamesFromDB });
     },
-    createGame: async (myName: string) => {
+    createGame: async (myName: string): Promise<string> => {
         const game = newGame(myName);
         await addGameToDB(game);
         set((state) => ({ games: [game, ...state.games] }));
+        return game.id;
     }
 }))
-
-interface CurrentGame {
-    game: GameState | null;
-    setGame: (game: GameState) => void;
-    placePiece: null | ((index: number) => void);
-    handPiece: null | ((piece: number) => void);
-    joinGame: null | ((user: string) => void);
-}
 
 const _useCurrentGameStore = (id: string) => create<CurrentGame>()(
     persist(
@@ -61,7 +54,6 @@ const _useCurrentGameStore = (id: string) => create<CurrentGame>()(
         {
             name: id,
             storage: gameStorage,
-            partialize: (state) => (state.game),
         }
     ))
 

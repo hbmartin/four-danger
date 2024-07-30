@@ -23,11 +23,11 @@ export default function Home() {
     }
   };
 
-  const showInstallMessage = useMemo(() => {
+  const showInstallMessage = () => {
     const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase())
     const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator.standalone)
     return isIos && !isInStandaloneMode
-  }, [window.navigator])
+  }
 
   if (isLoading) { return <div></div>; }
 
@@ -38,7 +38,7 @@ export default function Home() {
       ) : (
         <GameList name={name!} />
       )}
-      {showInstallMessage && <AddToHomeTooltip />}
+      {showInstallMessage() && <AddToHomeTooltip />}
     </main>
   );
 }
