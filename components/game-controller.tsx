@@ -6,7 +6,7 @@ import useSync from "@/lib/sync-hook";
 import { PiecesGrid } from "./pieces-grid";
 import { findOppName, getAvailablePieces } from "@/lib/game-logic";
 import { ChosenPiece } from "./chosen-piece";
-import { Tooltip } from "./add-to-home-tooltip";
+import { Tooltip } from "./tooltip";
 import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";

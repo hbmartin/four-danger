@@ -21,7 +21,7 @@ export default function GamePage({ params }: { params: { slug: string } }) {
     }
   };
 
-  if (isLoading) { return <div></div>; }
+  if (isLoading) { return <div />; }
 
   return (
     <main className="flex flex-col items-center justify-between md:px-24">

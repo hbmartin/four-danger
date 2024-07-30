@@ -7,7 +7,7 @@ export const BoardGrid = ({ grid, onGridClick }: { grid: (number | null)[], onGr
             {grid.map((piece, index) => (
                 <div
                     key={index}
-                    className="bg-background border rounded-md aspect-square flex items-center justify-center cursor-pointer"
+                    className="bg-background border rounded-md aspect-square cursor-pointer"
                     onClick={() => onGridClick(index)}
                 >
                     {(piece != null) && <Piece piece={piece} />}

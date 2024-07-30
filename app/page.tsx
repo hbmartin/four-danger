@@ -1,8 +1,8 @@
 "use client";
 
-import { Tooltip } from "@/components/add-to-home-tooltip";
 import { GameList } from "@/components/game-list";
 import { LoginForm } from "@/components/login-form";
+import { Tooltip } from "@/components/tooltip";
 import { getNameLS, saveNameLS } from "@/lib/database";
 import { useEffect, useMemo, useState } from "react";
 
