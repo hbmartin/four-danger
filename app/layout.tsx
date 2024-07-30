@@ -26,6 +26,10 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   return (
     <html lang="en">
+      <head>
+        <title>👾 Four Danger</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </head>
       <body 
         className={cn(
           'antialiased',

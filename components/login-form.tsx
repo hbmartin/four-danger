@@ -9,9 +9,9 @@ interface LoginFormProps {
 export const LoginForm: React.FC<LoginFormProps> = ({ loginClick }) => {
   const [name, setName] = useState("");
   return (
-    <div className="w-full space-y-4 px-4 md:px-0 md:max-w-md content-center">
-      <div className="space-y-2 ">
-        <h2 className="text-2xl font-bold">🎶 Oh na na na, what&apos;s your name? 🎶</h2>
+    <div className="w-full space-y-4 px-16 md:px-0 md:max-w-md content-center align-middle">
+      <div className="space-y-2 py-8">
+        <h2 className="text-2xl font-bold text-center py-8">🎶 Oh na na, what&rsquo;s your name? 🎶</h2>
         <Input id="name" placeholder="Your Initials"
           onChange={(e) => setName(e.target.value)}
           onKeyDown={(e) => {

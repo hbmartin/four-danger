@@ -4,11 +4,13 @@ import { GameState } from './models'
 
 const version = 0
 
+// Should this be CurrentGame instead? with custom non null merging for the fn's?
 export const gameStorage: PersistStorage<GameState | null> = {
     getItem: (name: string): Promise<StorageValue<GameState> | null> => {
         console.log(name, 'is being retrieved')
         return fetchGameFromDB(name)
             .then(game => {
+                console.log('retrieved game', game)
                 if (game) {
                     return {
                         state: { game },
