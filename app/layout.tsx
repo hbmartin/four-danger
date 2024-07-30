@@ -5,6 +5,7 @@ import { Space_Mono } from 'next/font/google'
 import { cn } from '@/lib/utils'
 import './globals.css'
 import { ReactNode } from 'react'
+import { Metadata, Viewport } from 'next'
 
 const fontHeading = DM_Sans({
   subsets: ['latin'],
@@ -23,13 +24,19 @@ interface LayoutProps {
   children: ReactNode
 }
 
+export const metadata: Metadata = {
+  title: '🕹️ Four Danger',
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+}
+
 export default function Layout({ children }: LayoutProps) {
   return (
     <html lang="en">
-      <head>
-        <title>👾 Four Danger</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </head>
       <body 
         className={cn(
           'antialiased',
