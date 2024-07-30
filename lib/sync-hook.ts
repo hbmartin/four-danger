@@ -39,7 +39,7 @@ const useSync = (id: string) => {
         } else if (!local.game && _local.persist.hasHydrated() && supabase.game) {
             console.log('local game is not set, but supabase game is')
             local.setGame(supabase.game);
-        } else if (local.game &&  supabase.game) {
+        } else if (local.game && supabase.game) {
             if (local.game.clock > supabase.game.clock) {
                 console.log('local game is newer')
                 setGame(local.game);

@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useGamesStore } from "@/lib/local-hook";
 import { useRouter } from "next/navigation";
 
@@ -20,6 +20,7 @@ export const GameList: React.FC<GameListProps> = ({ name }) => {
     const createAndNavToGame = () => {
         createGame(name).then(gameId => router.push(`/${gameId}`));
     }
+    const currentGames = useMemo(() => games.filter(game => game.winner === null), [games]);
 
     return (
         <div className="w-full space-y-4 px-4 md:px-0 md:max-w-md">

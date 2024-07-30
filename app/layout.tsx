@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils'
 import './globals.css'
 import { ReactNode } from 'react'
 import { Metadata, Viewport } from 'next'
+import { Analytics } from '@vercel/analytics/next'
 
 const fontHeading = DM_Sans({
   subsets: ['latin'],
@@ -25,7 +26,7 @@ interface LayoutProps {
 }
 
 export const metadata: Metadata = {
-  title: '🕹️ Four Danger',
+  title: 'Four Danger 🕹️',
 }
 
 export const viewport: Viewport = {
@@ -45,6 +46,7 @@ export default function Layout({ children }: LayoutProps) {
         )}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   )

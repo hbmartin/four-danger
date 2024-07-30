@@ -1,11 +1,16 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useMemo } from "react"
 import { BoardGrid } from "./board-grid";
 import useSync from "@/lib/sync-hook";
 import { PiecesGrid } from "./pieces-grid";
 import { findOppName, getAvailablePieces } from "@/lib/game-logic";
 import { ChosenPiece } from "./chosen-piece";
+import { Tooltip } from "./add-to-home-tooltip";
+import { ArrowLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Button } from "./ui/button";
+import { useGamesStore } from "@/lib/local-hook";
 
 interface GameControllerProps {
   id: string;
@@ -13,7 +18,9 @@ interface GameControllerProps {
 }
 
 export const GameController: React.FC<GameControllerProps> = ({ id, name }) => {
+  const { createGame } = useGamesStore();
   const { game, connected, placePiece, handPiece, joinGame } = useSync(id)
+  const router = useRouter()
 
   const handlePieceClick = (piece: number) => {
     console.log("handlePieceClick", piece)
@@ -44,7 +51,7 @@ export const GameController: React.FC<GameControllerProps> = ({ id, name }) => {
     if (!game) {
       return "Loading..."
     } else if (game.players[1] == null) {
-      return "Invite your opponent to join by sharing this link..."
+      return "Share this link to invite a friend to play"
     } else if (game.winner !== null) {
       if (game.winner == name) {
         return "🎉 You won! 🎉"
@@ -54,16 +61,16 @@ export const GameController: React.FC<GameControllerProps> = ({ id, name }) => {
     } else if (game.currentMove.user == name) {
       if (game.currentMove.piece == null) {
         const oppName = findOppName(game, name)
-        return `Tap a piece to hand it to ${oppName}.`
+        return `Tap a piece to hand it to ${oppName}`
       } else {
-        return `Tap the board to place your piece.`
+        return `Tap the board to place your piece`
       }
     } else {
       const oppName = game.currentMove.user
       if (game.currentMove.piece == null) {
-        return `Waiting for ${oppName} to choose a piece.`
+        return `Waiting for ${oppName} to choose a piece`
       } else {
-        return `Waiting for ${oppName} to place the piece.`
+        return `Waiting for ${oppName} to place the piece`
       }
     }
   }, [game?.currentMove, game?.players])
@@ -85,20 +92,30 @@ export const GameController: React.FC<GameControllerProps> = ({ id, name }) => {
     return game?.currentMove.user == name && game?.currentMove.piece != null && game?.players[1] != null && game?.winner == null;
   }, [game?.currentMove.user, game?.currentMove.piece, game?.players[1], name, game?.winner])
 
+  const showTooltip = useMemo(() => {
+    return game?.players[1] == null;
+  }, [game?.players[1]])
+
+  const createAndNavToGame = () => {
+    createGame(name).then(gameId => router.push(`/${gameId}`));
+  }
+
   return (
     <div className="flex flex-col items-center w-full max-w-md mx-auto gap-6 p-4 md:p-6">
-      <div className="fixed top-4 right-4 bg-muted rounded-full w-8 h-8 flex items-center justify-center z-10">
-        <span>{connected ? "🟢" : "🔴"}</span>
+      <div className="h-20 fixed top-0 left-0 right-0 flex flex-row gap-4 w-full p-4 bg-background border-[0] border-b border-solid border-inherit">
+        <div onClick={() => router.back()}><ArrowLeft /></div>
+        <div className="flex-grow text-center px-4">{message}</div>
+        <div>{connected ? "🟢" : "🔴"}</div>
       </div>
-      <div className="flex flex-wrap gap-2 justify-center">
-        {message}
-      </div>
-      {game?.players[1] &&
-        <BoardGrid grid={game?.board} onGridClick={handleGridClick} /> ||
-        <div>Waiting for new player to join... (TODO: share sheet)</div>
+      {game?.board &&
+        <BoardGrid grid={game.board} onGridClick={handleGridClick} />
       }
+      {game?.winner && <Button className="w-full" onClick={createAndNavToGame}>
+        <span className="flex-1 text-center">New Game</span>
+      </Button>}
       <ChosenPiece piece={game?.currentMove.piece} visible={showChosenPiece} />
-      <PiecesGrid availablePieces={availablePieces} handlePieceClick={handlePieceClick} visible={showPieces} />
-      </div>
+      <PiecesGrid availablePieces={showPieces ? availablePieces : []} handlePieceClick={handlePieceClick} visible={showPieces} />
+      {showTooltip && <Tooltip message="Share this link to invite a friend to play." />}
+    </div>
   )
 }

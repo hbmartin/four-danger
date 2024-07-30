@@ -109,4 +109,4 @@ function getNameLS(): string | null {
 }
 
 
-export { addGameToDB, updateGameInDB,fetchGameFromDB, fetchGamesFromDB, saveNameLS, getNameLS };
+export { addGameToDB, updateGameInDB, fetchGameFromDB, fetchGamesFromDB, saveNameLS, getNameLS };

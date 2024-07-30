@@ -1,6 +1,6 @@
 "use client";
 
-import { AddToHomeTooltip } from "@/components/add-to-home-tooltip";
+import { Tooltip } from "@/components/add-to-home-tooltip";
 import { GameList } from "@/components/game-list";
 import { LoginForm } from "@/components/login-form";
 import { getNameLS, saveNameLS } from "@/lib/database";
@@ -33,12 +33,12 @@ export default function Home() {
 
   return (
     <main className="flex min-h-full flex-col items-center justify-between md:px-24">
-      {name == null ? (
-        <LoginForm loginClick={handleLogin} />
-      ) : (
+      {name ? (
         <GameList name={name!} />
+      ) : (
+        <LoginForm loginClick={handleLogin} />
       )}
-      {showInstallMessage() && <AddToHomeTooltip />}
+      {showInstallMessage() && <Tooltip message="Tap the share button &rarr; scroll down to the 2nd section &rarr; tap &ldquo;Add to Home Screen&rdquo; [+]." />}
     </main>
   );
 }

@@ -24,14 +24,14 @@ const useSupabase = (id: string) => {
     const [status, setStatus] = useState<string>("starting");
     const channel = useRef<RealtimeChannel | null>(null);
 
-    const broadcast = (event: Events, payload: any) => {
+    const broadcast = useCallback((event: Events, payload: any) => {
         channel.current?.send({
             type: REALTIME_LISTEN_TYPES.BROADCAST,
             event,
             payload,
         });
         console.log('broadcasted: ', event, payload);
-    };
+    }, [channel.current]);
 
     const updateGame = (updatedGame: GameState) => {
         if (!game || game.clock < updatedGame.clock) {
