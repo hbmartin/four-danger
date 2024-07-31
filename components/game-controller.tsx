@@ -111,14 +111,11 @@ export const GameController: React.FC<GameControllerProps> = ({ id, name }) => {
   }
 
   const canBrowserShareData = useMemo(() => {
-    console.log("canBrowserShareData");
     if (!navigator.share || !navigator.canShare) {
-      console.log("canBrowserShareData share or canShare not present");
       return false;
     }
   
-    console.log("canBrowserShareData", navigator.canShare({"title": "Let's play!"}));
-    return navigator.canShare({"title": "Let's play!"});
+    return navigator.canShare({"title": "Let's play!", "url": window.location.href});
   }, [navigator.canShare, navigator.share]);
 
   return (
