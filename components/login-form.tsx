@@ -19,7 +19,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ loginClick }) => {
               console.log(name);
               loginClick(name);
             }
-          }}        />
+          }} />
       </div>
       <Button className="w-full" onClick={() => loginClick(name)}>
         <span className="flex-1 text-center">Let&apos;s Go!</span>
