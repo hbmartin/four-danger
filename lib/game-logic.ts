@@ -79,12 +79,27 @@ const checkForWin = (grid: (number | null)[]): boolean => {
 
 
 export const findOppName = (game: GameState, myName: string): string | null => {
-    if (game.players[1] == null) { return null; }
-    return game.players.filter(n => n !== myName)[0];
+    if (game.players[1] == null) {
+        return null;
+    } else if (game.players[0] != myName && game.players[1] != myName) {
+        return `👀 ${game.players[0]} vs ${game.players[1]}`;
+    } else {
+        return game.players.filter(n => n !== myName)[0];
+    }
 }
 
 const allPieces = Array.from({ length: 16 }, (_, i) => i);
 
 export const getAvailablePieces = (board: (number | null)[]) => {
     return allPieces.filter(piece => !board.includes(piece));
+}
+
+const illegalChars = "<>;$%(){}[]*!@#:;'\"`~^.,?/"
+export function containsIllegalChars(targetString: string): string | null {
+    for (const char of targetString) {
+        if (illegalChars.includes(char)) {
+            return char;
+        }
+    }
+    return null;
 }

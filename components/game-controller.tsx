@@ -51,7 +51,7 @@ export const GameController: React.FC<GameControllerProps> = ({ id, name }) => {
     if (!game) {
       return "Loading..."
     } else if (game.players[1] == null) {
-      return "Share this link to invite a friend to play"
+      return `Send this link to start!<br />Or use code: <b>${id}</b>`
     } else if (game.winner !== null) {
       if (game.winner == name) {
         return "🎉 You won! 🎉"
@@ -68,9 +68,9 @@ export const GameController: React.FC<GameControllerProps> = ({ id, name }) => {
     } else {
       const oppName = game.currentMove.user
       if (game.currentMove.piece == null) {
-        return `Waiting for ${oppName} to choose a piece`
+        return `Waiting for ${oppName}<br />to choose a piece`
       } else {
-        return `Waiting for ${oppName} to place the piece`
+        return `Waiting for ${oppName}<br />to place the piece`
       }
     }
   }, [game?.currentMove, game?.players])
@@ -113,7 +113,7 @@ export const GameController: React.FC<GameControllerProps> = ({ id, name }) => {
     <div className="flex flex-col items-center w-full max-w-md mx-auto gap-6 p-4 md:p-6">
       <div className="h-20 fixed top-0 left-0 right-0 flex flex-row gap-4 w-full p-4 bg-background border-[0] border-b border-solid border-inherit">
         <div className="cursor-pointer" onClick={() => router.push("/")}><ArrowLeft /></div>
-        <div className="flex-grow text-center px-4">{message}</div>
+        <div className="flex-grow text-center px-4" dangerouslySetInnerHTML={{ __html: message }} />
         <div>{connected ? "🟢" : "🔴"}</div>
       </div>
       {game?.board &&
