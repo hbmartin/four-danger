@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useCurrentGameStore } from "./local-hook";
 import useSupabase from "./supabase-hook";
 import { REALTIME_SUBSCRIBE_STATES } from "@supabase/supabase-js";
@@ -29,6 +29,14 @@ const useSync = (id: string) => {
             setGame(local.game);
         }
     })
+
+    const broadcastNewGame = (gameId: string) => {
+        supabase.broadcastNewGame(gameId);
+    }
+
+    const getNewGame = useCallback((): string | null => {
+        return supabase.newGameId;
+    }, [supabase.newGameId]);
 
     useEffect(() => {
         console.log('supabase.game', supabase.game);
@@ -61,7 +69,7 @@ const useSync = (id: string) => {
         setConnected(supabase.status === REALTIME_SUBSCRIBE_STATES.SUBSCRIBED);
     }, [supabase.status]);
 
-    return { game, connected, placePiece, handPiece, joinGame };
+    return { game, connected, placePiece, handPiece, joinGame, getNewGame, broadcastNewGame };
 }
 
 export default useSync;

@@ -19,7 +19,7 @@ interface GameControllerProps {
 
 export const GameController: React.FC<GameControllerProps> = ({ id, name }) => {
   const { createGame } = useGamesStore();
-  const { game, connected, placePiece, handPiece, joinGame } = useSync(id)
+  const { game, connected, placePiece, handPiece, joinGame, getNewGame, broadcastNewGame } = useSync(id)
   const router = useRouter()
 
   const handlePieceClick = (piece: number) => {
@@ -96,21 +96,30 @@ export const GameController: React.FC<GameControllerProps> = ({ id, name }) => {
     return game?.players[1] == null;
   }, [game?.players[1]])
 
-  const createAndNavToGame = () => {
-    createGame(name).then(gameId => router.push(`/${gameId}`));
+  const createOrGetNewGameAndNav = () => {
+    const newGameId: null | string = getNewGame()
+    if (newGameId) {
+      router.push(`/${newGameId}`)
+    } else {
+      createGame(name)
+      .then(gameId => {
+        broadcastNewGame(gameId)
+        router.push(`/${gameId}`)
+      });
+    }
   }
 
   return (
     <div className="flex flex-col items-center w-full max-w-md mx-auto gap-6 p-4 md:p-6">
       <div className="h-20 fixed top-0 left-0 right-0 flex flex-row gap-4 w-full p-4 bg-background border-[0] border-b border-solid border-inherit">
-        <div onClick={() => router.back()}><ArrowLeft /></div>
+        <div className="cursor-pointer" onClick={() => router.push("/")}><ArrowLeft /></div>
         <div className="flex-grow text-center px-4">{message}</div>
         <div>{connected ? "🟢" : "🔴"}</div>
       </div>
       {game?.board &&
         <BoardGrid grid={game.board} onGridClick={handleGridClick} />
       }
-      {game?.winner && <Button className="w-full" onClick={createAndNavToGame}>
+      {game?.winner && <Button className="w-full" onClick={createOrGetNewGameAndNav}>
         <span className="flex-1 text-center">New Game</span>
       </Button>}
       <ChosenPiece piece={game?.currentMove.piece} visible={showChosenPiece} />
