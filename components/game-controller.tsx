@@ -51,7 +51,7 @@ export const GameController: React.FC<GameControllerProps> = ({ id, name }) => {
     if (!game) {
       return "Loading..."
     } else if (game.players[1] == null) {
-      return "Send this link to start!<br />Or use code: <b>" + id + "</b>"
+      return `Send this link to start!<br />Or use code: <b>${id}</b>`
     } else if (game.winner !== null) {
       if (game.winner == name) {
         return "🎉 You won! 🎉"
