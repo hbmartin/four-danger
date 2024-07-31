@@ -109,6 +109,17 @@ export const GameController: React.FC<GameControllerProps> = ({ id, name }) => {
     }
   }
 
+  const canBrowserShareData = useMemo(() => {
+    console.log("canBrowserShareData");
+    if (!navigator.share || !navigator.canShare) {
+      console.log("canBrowserShareData share or canShare not present");
+      return false;
+    }
+  
+    console.log("canBrowserShareData", navigator.canShare({"title": "Let's play!"}));
+    return navigator.canShare({"title": "Let's play!"});
+  }, [navigator.canShare, navigator.share]);
+
   return (
     <div className="flex flex-col items-center w-full max-w-md mx-auto gap-6 p-4 md:p-6">
       <div className="h-20 fixed top-0 left-0 right-0 flex flex-row gap-4 w-full p-4 bg-background border-[0] border-b border-solid border-inherit">
