@@ -11,6 +11,7 @@ import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import { useGamesStore } from "@/lib/local-hook";
+import { ShareBubble } from "./share-bubble";
 
 interface GameControllerProps {
   id: string;
@@ -135,7 +136,8 @@ export const GameController: React.FC<GameControllerProps> = ({ id, name }) => {
       </Button>}
       <ChosenPiece piece={game?.currentMove.piece} visible={showChosenPiece} />
       <PiecesGrid availablePieces={showPieces ? availablePieces : []} handlePieceClick={handlePieceClick} visible={showPieces} />
-      {showTooltip && <Tooltip message="Share this link to invite a friend to play." />}
+      {showTooltip && canBrowserShareData && <ShareBubble />}
+      {showTooltip && !canBrowserShareData && <Tooltip message="Share this link to invite a friend to play." />}
     </div>
   )
 }
