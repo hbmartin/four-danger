@@ -93,3 +93,13 @@ const allPieces = Array.from({ length: 16 }, (_, i) => i);
 export const getAvailablePieces = (board: (number | null)[]) => {
     return allPieces.filter(piece => !board.includes(piece));
 }
+
+const illegalChars = "<>;$%(){}[]*!@#:;'\"`~^.,?/"
+export function containsIllegalChars(targetString: string): string | null {
+    for (const char of targetString) {
+        if (illegalChars.includes(char)) {
+            return char;
+        }
+    }
+    return null;
+}

@@ -1,10 +1,10 @@
-function generateRandomString(length: number = 6) {
-    const characters ='ABCDEFGHIJKLMNPQRSTUVWXYZ123456789';
+const game_id_characters = 'ABCDEFGHJKLMNPQRSTUVWXYZ123456789';
 
+function generateRandomString(length: number = 6) {
     let result = '';
-    const charactersLength = characters.length;
-    for ( let i = 0; i < length; i++ ) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    const charactersLength = game_id_characters.length;
+    for (let i = 0; i < length; i++) {
+        result += game_id_characters.charAt(Math.floor(Math.random() * charactersLength));
     }
 
     return result;
