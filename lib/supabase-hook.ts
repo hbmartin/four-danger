@@ -8,6 +8,7 @@ enum Events {
     Ping = 'ping',
     PostState = 'post-state',
     RequestState = 'request-state',
+    NewGame = 'post-new-game',
 }
 
 enum ConnectionStatus {
@@ -19,6 +20,7 @@ enum ConnectionStatus {
 const useSupabase = (id: string) => {
     const [firstAnswerReceived, setFirstAnswerReceived] = useState(false);
     const [game, setGame] = useState<null | GameState>(null);
+    const [newGameId, _setNewGameId] = useState<null | string>(null);
     const [status, setStatus] = useState<string>("starting");
     const channel = useRef<RealtimeChannel | null>(null);
 
@@ -70,13 +72,24 @@ const useSupabase = (id: string) => {
         }
     }, [game, broadcast])
 
+    const broadcastNewGame = useCallback((gameId: string) => {
+        console.log('broadcasting new game from', id, gameId)
+        broadcast(Events.NewGame, {"id": gameId})
+    }, [broadcast])
+
+    const setNewGameId = useCallback((payload: any) => {
+        console.log('setting new game id', payload)
+        _setNewGameId(payload.payload.id)
+    }, [_setNewGameId])
+
     useEffect(() => {
-        console.log('updating bindings', channel.current);
+        console.log('updating bindings');
         const _channel = channel.current
         if (_channel) {
             _channel.bindings.broadcast = [
                 { type: REALTIME_LISTEN_TYPES.BROADCAST, filter: { event: Events.PostState }, callback: receiveUpdatedStateThenUpdateOrBroadcast },
                 { type: REALTIME_LISTEN_TYPES.BROADCAST, filter: { event: Events.RequestState }, callback: broadcastCurrentState },
+                { type: REALTIME_LISTEN_TYPES.BROADCAST, filter: { event: Events.NewGame }, callback: setNewGameId },
             ]
         }
     }, [game, channel.current])
@@ -99,6 +112,11 @@ const useSupabase = (id: string) => {
                 { event: Events.RequestState },
                 broadcastCurrentState
             )
+            .on(
+                REALTIME_LISTEN_TYPES.BROADCAST,
+                { event: Events.NewGame },
+                setNewGameId
+            )
             .subscribe(async (status) => {
                 setStatus(status);
                 if (status === REALTIME_SUBSCRIBE_STATES.SUBSCRIBED) {
@@ -107,7 +125,7 @@ const useSupabase = (id: string) => {
             })
     }, [id]);
 
-    return { game, status, updateGame };
+    return { game, status, newGameId, updateGame, broadcastNewGame };
 };
 
 export default useSupabase;
