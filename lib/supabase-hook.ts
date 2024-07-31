@@ -2,9 +2,7 @@ import { createClient, REALTIME_LISTEN_TYPES, REALTIME_SUBSCRIBE_STATES, Realtim
 import { useState, useEffect, useRef, useCallback } from "react";
 import { GameState } from "./models";
 
-const SUPABASE_URL = 'https://kdmheuzdtaqxkoczxocf.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtkbWhldXpkdGFxeGtvY3p4b2NmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjEzNDc5OTEsImV4cCI6MjAzNjkyMzk5MX0.0L0eEUF6PUSE1Pj6nhGQ1EP2kUXY2Q1-5jLkGlFIT5M';
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
+const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_KEY!)
 
 enum Events {
     Ping = 'ping',
