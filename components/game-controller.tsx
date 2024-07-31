@@ -11,6 +11,7 @@ import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import { useGamesStore } from "@/lib/local-hook";
+import { ShareBubble } from "./share-bubble";
 
 interface GameControllerProps {
   id: string;
@@ -109,6 +110,14 @@ export const GameController: React.FC<GameControllerProps> = ({ id, name }) => {
     }
   }
 
+  const canBrowserShareData = useMemo(() => {
+    if (!navigator.share || !navigator.canShare) {
+      return false;
+    }
+  
+    return navigator.canShare({"title": "Let's play!", "url": window.location.href});
+  }, [navigator.canShare, navigator.share]);
+
   return (
     <div className="flex flex-col items-center w-full max-w-md mx-auto gap-6 p-4 md:p-6">
       <div className="h-20 fixed top-0 left-0 right-0 flex flex-row gap-4 w-full p-4 bg-background border-[0] border-b border-solid border-inherit">
@@ -124,7 +133,8 @@ export const GameController: React.FC<GameControllerProps> = ({ id, name }) => {
       </Button>}
       <ChosenPiece piece={game?.currentMove.piece} visible={showChosenPiece} />
       <PiecesGrid availablePieces={showPieces ? availablePieces : []} handlePieceClick={handlePieceClick} visible={showPieces} />
-      {showTooltip && <Tooltip message="Share this link to invite a friend to play." />}
+      {showTooltip && canBrowserShareData && <ShareBubble />}
+      {showTooltip && !canBrowserShareData && <Tooltip message="Share this link to invite a friend to play." />}
     </div>
   )
 }
