@@ -50,9 +50,9 @@ export const GameController: React.FC<GameControllerProps> = ({ id, name }) => {
 
   const message: string = useMemo(() => {
     if (!game) {
-      return "Loading..."
+      return "⏳ Waiting for<br />an opponent"
     } else if (game.players[1] == null) {
-      return `Send this link to start!<br />Or use code: <b>${id}</b>`
+      return `⬆️ Share this to start!<br />Or use code: <b>${id}</b>`
     } else if (game.winner !== null) {
       if (game.winner == name) {
         return "🎉 You won! 🎉"
